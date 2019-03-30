@@ -1,8 +1,12 @@
 <?php
 
-namespace Composite;
-
+/**
+ * Interface RenderableInterface
+ */
 interface RenderableInterface
 {
+    /**
+     * @return string
+     */
     public function render(): string;
 }

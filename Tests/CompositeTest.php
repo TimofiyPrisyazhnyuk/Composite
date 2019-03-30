@@ -3,29 +3,36 @@
 namespace Composite\Tests;
 
 use Composite;
+use Form;
+use InputElement;
+use TextElement;
 
-require __DIR__ . "/../RenderableInterface.php";
+spl_autoload_register(function ($class) {
+    include __DIR__ . '/../' . $class . '.php';
+});
 
-foreach (glob("*.php") as $filename) {
-    if (file_exists($file = __DIR__ . '/../' . $filename)) {
-        require_once $file;
-    }
-}
-
+/**
+ * Class CompositeTest
+ * @package Composite\Tests
+ */
 class CompositeTest
 {
+    /**
+     * Test Composite
+     */
     public function testRender()
     {
-        $form = new Composite\Form();
-        $form->addElement(new Composite\TextElement('Email:'));
-        $form->addElement(new Composite\InputElement());
+        $form = new Form();
+        $form->addElement(new TextElement('Email:'));
+        $form->addElement(new InputElement());
         var_dump($form->render());
-        $embed = new Composite\Form();
-        $embed->addElement(new Composite\TextElement('Password:'));
-        $embed->addElement(new Composite\InputElement());
+        $embed = new Form();
+        $embed->addElement(new TextElement('Password:'));
+        $embed->addElement(new InputElement());
         $form->addElement($embed);
         var_dump($form->render());
     }
 }
 
+// Run test.
 (new CompositeTest())->testRender();
